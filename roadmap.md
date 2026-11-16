@@ -1,0 +1,3 @@
+- [ ] Build database-driven animated invitation and language switching.
+- [ ] Build RSVP submission and secure admin editing, uploads, duplication, and CSV export.
+- [ ] Configure admin password and verify invitation and admin flows.
