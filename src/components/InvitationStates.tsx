@@ -1,0 +1,5 @@
+import type { Invitation } from '@/lib/invitation';
+import { Flower2 } from 'lucide-react';
+export function invitationHead(invitation:Invitation|null|undefined){const l=invitation?.settings.default_language||'uz';const title=invitation?.content.texts['meta_title']?.[l]||'The Sacred Garden';const description=invitation?.content.texts['meta_description']?.[l]||'The Sacred Garden wedding invitation';const image=invitation?.media['hero_image'];return {meta:[{title},{name:'description',content:description},{property:'og:title',content:title},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'},...(image?.startsWith('https://')?[{property:'og:image',content:image},{name:'twitter:image',content:image}]:[])]};}
+export function InvitationSkeleton(){return <div className="invitation-state"><Flower2 className="animate-pulse"/><div className="skeleton-line"/><div className="skeleton-envelope"/></div>;}
+export function InvitationUnavailable(){return <div className="invitation-state"><Flower2/><h1>404</h1></div>;}

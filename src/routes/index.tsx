@@ -1,23 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute } from '@tanstack/react-router';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import { getInvitation } from '@/lib/invitation.functions';
+import { InvitationPage } from '@/components/InvitationPage';
+import { invitationHead, InvitationUnavailable, InvitationSkeleton } from '@/components/InvitationStates';
+const options=queryOptions({queryKey:['invitation','sacred-garden'],queryFn:()=>getInvitation({data:{slug:'sacred-garden'}})});
+export const Route=createFileRoute('/')({loader:({context})=>context.queryClient.ensureQueryData(options),head:({loaderData})=>invitationHead(loaderData),component:Index,pendingComponent:InvitationSkeleton,errorComponent:InvitationUnavailable,notFoundComponent:InvitationUnavailable});
+function Index(){const {data}=useSuspenseQuery(options);return data?<InvitationPage invitation={data}/>:<InvitationUnavailable/>;}

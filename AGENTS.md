@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Invitation views are shared by the root and slug routes and consume database JSON; this keeps duplicated invitations code-free.
+- Password-admin operations use server functions with two-hour HMAC tokens and server-verified authorization; credentials never enter the browser bundle.
+- Private invitation media uses signed upload and read URLs because workspace policy blocks public buckets.
