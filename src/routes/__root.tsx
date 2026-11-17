@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Sacred Garden" },
       { name: "description", content: "The Sacred Garden wedding invitation" },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "WebInvite" },
       { property: "og:title", content: "The Sacred Garden" },
       { property: "og:description", content: "The Sacred Garden wedding invitation" },
       { property: "og:type", content: "website" },
