@@ -1,3 +1,5 @@
-- [ ] Build database-driven animated invitation and language switching.
-- [ ] Build RSVP submission and secure admin editing, uploads, duplication, and CSV export.
-- [ ] Configure admin password and verify invitation and admin flows.
+- [x] Build database-driven animated invitation and language switching.
+- [x] Build RSVP submission and secure admin editing, uploads, duplication, and CSV export.
+- [x] Configure admin password and verify invitation and admin flows.
+- [x] Simplify studio to four Uzbek-only client-invitation tabs, derived date/map, media previews, and collapsed colors.
+- [ ] Complete image-upload verification and remaining edge-case checks when credits are available.

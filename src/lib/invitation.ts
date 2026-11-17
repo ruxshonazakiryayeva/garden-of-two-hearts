@@ -1,6 +1,6 @@
 import type { Json, Tables } from '@/integrations/supabase/types';
 export type Localized = Record<string, string>;
-export type Content = { wedding_date?: string; map_url?: string; languages: {code:string;label:string}[]; schedule: {time:Localized;title:Localized}[]; texts: Record<string,Localized>; ui: Record<string,string> };
+export type Content = { wedding_date?: string; map_url?: string; map_override?:string; languages: {code:string;label:string}[]; schedule: {time:Localized;title:Localized}[]; texts: Record<string,Localized>; ui: Record<string,string> };
 export type Settings = {default_language?:string; colors?:Record<string,string>; fonts?:Record<string,string>; section_order:string[]; sections_enabled:Record<string,boolean>};
 export type Invitation = Omit<Tables<'invitations'>,'content'|'media'|'settings'> & {content:Content;media:Record<string,string>;settings:Settings};
 export function asInvitation(row:Tables<'invitations'>):Invitation {return {...row,content:row.content as unknown as Content,media:row.media as Record<string,string>,settings:row.settings as unknown as Settings};}

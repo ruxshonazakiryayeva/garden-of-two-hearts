@@ -32,3 +32,5 @@ use the editor.
 - Invitation views are shared by the root and slug routes and consume database JSON; this keeps duplicated invitations code-free.
 - Password-admin operations use server functions with two-hour HMAC tokens and server-verified authorization; credentials never enter the browser bundle.
 - Private invitation media uses signed upload and read URLs because workspace policy blocks public buckets.
+- Studio form updates only Uzbek values and derives display date and map URL on save; existing translations remain intact.
+- Saved invitation mutations invalidate the matching Query cache before the router; visible content must refresh immediately.

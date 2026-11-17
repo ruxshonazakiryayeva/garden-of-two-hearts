@@ -1,0 +1,7 @@
+import type { Content, Invitation } from './invitation';
+export function setUzbek(content:Content,key:string,value:string):Content {return {...content,texts:{...content.texts,[key]:{...content.texts[key],uz:value}}};}
+export function displayDate(value:string){const match=/^(\d{4})-(\d{2})-(\d{2})/.exec(value);return match?`${match[3]}.${match[2]}.${match[1]?.slice(2)}`:'';}
+export function mapFromAddress(address:string,override=''){return override.trim()||(address.trim()?`https://www.google.com/maps?q=${encodeURIComponent(address.trim())}&output=embed`:'');}
+export function prepareInvitation(draft:Invitation):Invitation {let content=setUzbek(draft.content,'date_display',displayDate(draft.content.wedding_date||''));content={...content,map_url:mapFromAddress(content.texts['address']?.['uz']||'',content.map_override)};return {...draft,content};}
+export function publicLanguages(content:Content){const keys=['groom','bride','intro_text'];return content.languages.filter(l=>l.code==='uz'||keys.some(k=>Boolean(content.texts[k]?.[l.code]?.trim())));}
+export function moveSchedule(content:Content,index:number,delta:number):Content {const rows=[...content.schedule];const item=rows[index];const other=rows[index+delta];if(!item||!other)return content;rows[index]=other;rows[index+delta]=item;return {...content,schedule:rows};}
