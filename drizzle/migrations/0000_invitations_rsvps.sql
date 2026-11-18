@@ -1,4 +1,4 @@
-CREATE TABLE public.invitations (
+CREATE TABLE public.invitation (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   slug text NOT NULL UNIQUE,
   template text NOT NULL DEFAULT 'sacred-garden',
@@ -8,10 +8,10 @@ CREATE TABLE public.invitations (
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.invitations TO anon, authenticated;
-GRANT ALL ON public.invitations TO service_role;
-ALTER TABLE public.invitations ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Public can read invitations" ON public.invitations FOR SELECT TO anon, authenticated USING (true);
+GRANT SELECT ON public.invitation TO anon, authenticated;
+GRANT ALL ON public.invitation TO service_role;
+ALTER TABLE public.invitation ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public can read invitations" ON public.invitation FOR SELECT TO anon, authenticated USING (true);
 
 CREATE TABLE public.rsvps (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -32,7 +32,7 @@ WITH CHECK (
   AND guests_count BETWEEN 0 AND 50
   AND coalesce(char_length(song),0) <= 300
   AND coalesce(char_length(children_info),0) <= 1000
-  AND EXISTS (SELECT 1 FROM public.invitations i WHERE i.slug = invitation_slug)
+  AND EXISTS (SELECT 1 FROM public.invitation i WHERE i.slug = invitation_slug)
 );
 
 CREATE TABLE public.admin_login_attempts (
@@ -44,7 +44,7 @@ GRANT ALL ON public.admin_login_attempts TO service_role;
 ALTER TABLE public.admin_login_attempts ENABLE ROW LEVEL SECURITY;
 CREATE INDEX admin_login_attempts_ip_idx ON public.admin_login_attempts(ip, created_at);
 
-INSERT INTO public.invitations (slug, content, media, settings) VALUES (
+INSERT INTO public.invitation (slug, content, media, settings) VALUES (
 'sacred-garden',
 $json${
   "wedding_date": "2026-09-27T17:00:00",
